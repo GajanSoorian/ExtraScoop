@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-type servicesHandler struct {
+type ServicesHandler struct {
 }
 
 //HomeHandler is a handler for home page test
@@ -22,11 +22,11 @@ func TestServiceHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "1) Hair cut \n 2) Shave \n 3) manicure ") // send data to client side
 }
 
-func /*(sh *servicesHandler)*/ AllServiceHandler(w http.ResponseWriter, r *http.Request) {
+func (sh *ServicesHandler) AllServiceHandler(w http.ResponseWriter, r *http.Request) {
 }
 
-func /*(sh *servicesHandler)*/ NewServiceHandler(w http.ResponseWriter, r *http.Request) {
+func (sh *ServicesHandler) NewServiceHandler(w http.ResponseWriter, r *http.Request) {
 }
 
-func /*(sh *servicesHandler)*/ FindServiceHandler(w http.ResponseWriter, r *http.Request) {
+func (sh *ServicesHandler) FindServiceHandler(w http.ResponseWriter, r *http.Request) {
 }

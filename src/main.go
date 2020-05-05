@@ -6,13 +6,12 @@ import (
 	"net/http"
 
 	"github.com/ExtraScoop/src/rest"
-
 	"github.com/gorilla/mux"
 )
 
-func main() {
+func startServer(endpoint string) {
 	r := mux.NewRouter()
-	//handler = new()
+	handler := &rest.ServicesHandler{}
 	r.HandleFunc("/", rest.HomeHandler)
 
 	servicesRouter := r.PathPrefix("/services").Subrouter()
@@ -20,13 +19,17 @@ func main() {
 	servicesRouter.HandleFunc("", rest.TestServiceHandler)
 	servicesRouter.Methods("GET").Path("/{serchcriteria}/{search}").HandlerFunc(rest.TestServiceHandler)
 	//test end
-	servicesRouter.Methods("GET").Path("/{SearchCriteria}/{search}").HandlerFunc(rest.FindServiceHandler)
-	servicesRouter.Methods("GET").Path("").HandlerFunc(rest.AllServiceHandler)
-	servicesRouter.Methods("POST").Path("").HandlerFunc(rest.NewServiceHandler)
+	servicesRouter.Methods("GET").Path("/{SearchCriteria}/{search}").HandlerFunc(handler.FindServiceHandler)
+	servicesRouter.Methods("GET").Path("").HandlerFunc(handler.AllServiceHandler)
+	servicesRouter.Methods("POST").Path("").HandlerFunc(handler.NewServiceHandler)
 
 	fmt.Println("So far so good")
-	err := http.ListenAndServe(":9000", r) // set listen port. default handler DefaultServeMux called since nil is passed.
+	err := http.ListenAndServe(endpoint, r) // set listen port. default handler DefaultServeMux called since nil is passed.
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
+}
+
+func main() {
+	startServer(":9000")
 }
