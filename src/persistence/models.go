@@ -26,7 +26,8 @@ type Location struct {
 }
 
 type Stylist struct {
-	Name     string `json:"name"`
-	Location string `json:"location,omitempty"`
-	Level    string `json:"stylistLevel"`
+	ID       bson.ObjectId `bson:"_id"`
+	Name     string        `json:"name"`
+	Location string        `json:"location,omitempty"`
+	Level    string        `json:"stylistLevel"`
 }
