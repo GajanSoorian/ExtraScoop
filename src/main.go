@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/ExtraScoop/src/persistence/dblayer"
 	"github.com/ExtraScoop/src/rest"
 	"github.com/gorilla/mux"
 )
@@ -31,5 +32,8 @@ func startServer(endpoint string) {
 }
 
 func main() {
+	fmt.Println("Connecting to database")
+	dbhandler, _ := dblayer.NewPersistenceLayer("mongodb", "mongodb://localhost:27017")
+	dbhandler.AddService()
 	startServer(":9000")
 }
